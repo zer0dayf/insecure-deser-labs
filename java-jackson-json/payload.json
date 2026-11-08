@@ -1,0 +1,10 @@
+{
+  "@class": "lab.WorkflowEnvelope",
+  "router": {
+    "@class": "lab.TaskRouter",
+    "action": {
+      "@class": "lab.ProcessAction",
+      "command": "id"
+    }
+  }
+}

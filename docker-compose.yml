@@ -1,0 +1,44 @@
+name: insecure-deser-labs
+x-lab-security: &lab-security
+  read_only: true
+  tmpfs:
+    - /tmp:rw,noexec,nosuid,size=16m
+  cap_drop: [ALL]
+  security_opt:
+    - no-new-privileges:true
+  pids_limit: 64
+  mem_limit: 384m
+  init: true
+services:
+  java:
+    <<: *lab-security
+    build:
+      context: .
+      dockerfile: java-jackson-json/Dockerfile
+    ports: ["127.0.0.1:8081:8080"]
+    mem_limit: 512m
+  dotnet:
+    <<: *lab-security
+    build:
+      context: .
+      dockerfile: dotnet-binaryformatter/Dockerfile
+    ports: ["127.0.0.1:8082:8080"]
+  php:
+    <<: *lab-security
+    build:
+      context: .
+      dockerfile: php-unserialize/Dockerfile
+    ports: ["127.0.0.1:8083:8080"]
+  python:
+    <<: *lab-security
+    build:
+      context: .
+      dockerfile: python-pickle/Dockerfile
+    ports: ["127.0.0.1:8084:8080"]
+  java-native:
+    <<: *lab-security
+    build:
+      context: .
+      dockerfile: java-native-commonscollections/Dockerfile
+    ports: ["127.0.0.1:8085:8080"]
+    mem_limit: 512m
